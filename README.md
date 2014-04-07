@@ -14,6 +14,11 @@ Subway is built with [node.js](http://nodejs.org/),
 and [Backbone.js](http://documentcloud.github.com/backbone/) and
 [jQuery](http://jquery.com/) on the frontend.
 
+Deploying to Stackato
+---------------------
+
+    stackato push -n
+
 Screenshots
 ------------
 ![Overview](http://i.imgur.com/pIJr7r7.png)
