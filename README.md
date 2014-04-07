@@ -1,6 +1,8 @@
 Subway
 ======
 
+**Subway is being actively refactored please see issue #292 for info**
+
 Subway is a web-based IRC client with a multi-user backend and a
 JavaScript-heavy UI. Frontend/backend communication is done with
 websockets (or best available fallback where not available).
@@ -48,11 +50,6 @@ Contributors are welcome and greatly appreciated.
 Configuration
 -------------
 
-### Client Port
-
-You can set which port will be listened on the socket side with the
-`client_port` setting.
-
 ### Long Polling
 
 If for some reasons you can't establish websockets, (e.g. Heroku, browser
@@ -64,7 +61,6 @@ and it will use xhr-polling instead.
 Set the following environment vars to your app: 
 
 * USE\_POLLING=1
-* CLIENT\_PORT=80
 
 History
 -------

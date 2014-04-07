@@ -6,13 +6,15 @@ var ChannelListView = Backbone.View.extend({
 
   events: {
     'click #slide-prev': 'slidePrev',
-    'click #slide-next': 'slideNext'
+    'click #slide-next': 'slideNext',
   },
 
   initialize: function() {
     irc.chatWindows.bind('add', this.addChannel, this);
     $('.slide').css('display', 'inline-block');
     this.channelTabs = []
+    var new_channel_btn = new AddChannelView;
+    $(this.el).after(new_channel_btn);
   },
 
   addChannel: function(chatWindow) {
@@ -22,7 +24,7 @@ var ChannelListView = Backbone.View.extend({
     $el.append(view.render().el);
 
     var name = chatWindow.get('name');
-    if(name[0] === '#' || name === 'status'){
+    if(utils.isChannel(name[0]) || name === 'status'){
       view.setActive();
 
       if ($el.css('position') == 'fixed' && !(chatWindow.get('initial'))) {

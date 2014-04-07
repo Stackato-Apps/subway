@@ -25,6 +25,19 @@ var WindowList = Backbone.Collection.extend({
     });
   },
 
+  getStatus: function() {
+    var statusWindow = this.getByName('status');
+
+    if(statusWindow === undefined){
+      irc.connected = true;
+      irc.appView.render();
+      this.add({name: 'status', type: 'status'});
+      statusWindow = this.getByName('status');
+    }
+
+    return statusWindow;
+  },
+
   getActive: function() {
     return this.find(function(chat) {
       return chat.get('active') === true;
@@ -34,7 +47,7 @@ var WindowList = Backbone.Collection.extend({
   setActive: function(selected) {
     //This is here for private messages
     var name = selected.get('name');
-    if((name[0] !== '#' && name !== 'status') && selected.stream.models.length < 1){
+    if((!utils.isChannel(name) && name !== 'status') && selected.stream.models.length < 1){
       selected.set({active: false});
       return;
     }

@@ -1,5 +1,5 @@
 module.exports = {
-  debug: true,
+  debug: false,
 
   dbadapter: 'sqlite3',
   dbname: process.env.DB_PATH || 'subway.db',
@@ -23,17 +23,21 @@ module.exports = {
   },
 
   dev: {
-    port: process.env.PORT || 3000,
-    client_port: process.env.CLIENT_PORT || process.env.PORT || 3000
+    port: process.env.PORT || 3000
   },
 
   prod: {
-      port: process.env.PORT || 14858, // Nodester port
-    client_port: 80 // Websockets talk on port 80 on Nodester, regardless of listen port
+    port: process.env.PORT || 14858 // Nodester port
   },
 
   use_polling: process.env.USE_POLLING || false, // Use polling if websockets aren't supported
 
   // limit each user's connection log to this amount of messages (***not implemented yet***)
-  max_log_size: 4096
+  max_log_size: 4096,
+
+  // How long you want to store a cookie, both server and client side, in hours.
+  cookie_time: 7 * 24,
+
+  // Secret key used to generate a unique and secure session cookie hash.
+  secret_key: "MY-SUPER-SECRET-KEY"
 };

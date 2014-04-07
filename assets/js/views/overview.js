@@ -1,6 +1,14 @@
 var OverviewView = Backbone.View.extend({
   initialize: function() {
-    this.render();
+    // Check if we are logged in with a cookie.
+    if ($.cookie('auth_token')){
+      irc.socket.emit('session_check', {
+        auth_token: $.cookie('auth_token'),
+      });
+    } else {
+      // If not, we render the overview page.
+      this.render();
+    }
   },
 
   events: {
@@ -134,26 +142,27 @@ var OverviewView = Backbone.View.extend({
 
     var username = $('#' + action + '-username').val();
     var password = $('#' + action + '-password').val();
- 
+
     if (!username) {
-      $('#' + action + '-username').closest('.clearfix').addClass('error');
-      $('#' + action + '-username').addClass('error');
+      $('#' + action + '-username').closest('.control-group').addClass('error');
+      $('#' + action + '-username').siblings('.help-inline').show();
     }
     
     if (!password) {
-      $('#' + action + '-password').closest('.clearfix').addClass('error');
-      $('#login-password').addClass('error');
+      $('#' + action + '-password').closest('.control-group').addClass('error');
+      $('#' + action + '-password').siblings('.help-inline').show();
     }
     
     if(username && password){
-      $('form').append(ich.load_image());
+      $('#' + action + '-button').parent().append(ich.load_image());
       $('#' + action + '-button').addClass('disabled');
+      
+      // Everything looks OK with the form, send it to server-side.
+      irc.socket.emit(action, {
+        username: username,
+        password: password
+      });
     }
-
-    irc.socket.emit(action, {
-      username: username,
-      password: password
-    });
   },
 
   toggle_ssl_options: function(event) {
