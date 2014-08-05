@@ -1,0 +1,8 @@
+applications:
+- name: subway
+  stackato:
+    env:
+      USE_POLLING:
+        default: 1
+      CLIENT_PORT:
+        default: 80

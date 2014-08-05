@@ -1,4 +1,0 @@
-name: subway
-env:
-  USE_POLLING: 1
-  CLIENT_PORT: 80
