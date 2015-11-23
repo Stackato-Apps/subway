@@ -1,5 +1,6 @@
 applications:
 - name: subway
+  memory: 64M
   stackato:
     env:
       USE_POLLING:
